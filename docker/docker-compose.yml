@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+    hub:
+        image: selenium/hub
+        container_name: hub
+        ports:
+            - '4444:4444'
+
+    node-chrome:
+        image: selenium/node-chrome-debug
+        container_name: node-chrome
+        volumes:
+            - /dev/shm:/dev/shm
+        environment:
+            - HUB_HOST=hub
+            - HUB_PORT=4444
+        ports:
+            - '5900:5900'
+        depends_on:
+            - hub
+
